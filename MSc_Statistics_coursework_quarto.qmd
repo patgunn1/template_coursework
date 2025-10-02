@@ -1,7 +1,7 @@
 ---
 title: "Coursework Template"
 subtitle: 'MSc in Statistics 2025/26, Imperial College London'
-author: "Andrew Duncan, Oliver Ratmann"
+author: "Patrick Gunn"
 format:
   html:
     toc: true
@@ -13,6 +13,7 @@ format-links: false
 bibliography: "MSc_Statistics_coursework_template_quarto.bib" 
 ---
 
+```{=html}
 <style type="text/css">
 h1{
   font-size: 24pt;
@@ -24,6 +25,7 @@ body{
   font-size: 12pt;
 }
 </style>
+```
 
 ```{r setup, include = FALSE, tidy=TRUE}
 knitr::opts_chunk$set(
@@ -32,6 +34,7 @@ knitr::opts_chunk$set(
 )
 include_solutions <- TRUE
 ```
+
 ```{r setup2, include=FALSE, tidy=TRUE}
 require(rmarkdown)
 require(knitr)
@@ -43,26 +46,23 @@ This Rmarkdown document is intended to provide a basic template that you may use
 
 Please note:
 
-- Rmarkdown syntax for the title and document style;
-- bookdown syntax to label and reference equations;
-- bookdown syntax to referencing literate and provide a bib file;
-- kable syntax to build clean and clear tables that can be referenced;
-- Rmarkdown inline functions to collect and print all code used.
+-   Rmarkdown syntax for the title and document style;
+-   bookdown syntax to label and reference equations;
+-   bookdown syntax to referencing literate and provide a bib file;
+-   kable syntax to build clean and clear tables that can be referenced;
+-   Rmarkdown inline functions to collect and print all code used.
 
 # Sampling from the Cauchy distribution
 
-In this question we seek to generate samples from the standard Cauchy distribution, with pdf given by
-\begin{equation}
+In this question we seek to generate samples from the standard Cauchy distribution, with pdf given by \begin{equation}
   p(x) = \frac{1}{\pi (1 + x^2)}, \quad x \in \mathbb{R}.
   (\#eq:1)
-\end{equation}
-The cdf associated with \@ref(eq:1) is given by
-\begin{equation}
+\end{equation} The cdf associated with \@ref(eq:1) is given by \begin{equation}
   F(x) = \frac{1}{\pi}\arctan(x) + \frac{1}{2}.
   (\#eq:2)
 \end{equation}
 
-**Part a.**  We apply the inversion method as described by @graham2013stochastic. We first compute the generalised inverse of the cdf \@ref(eq:2).  To this end, let $y\in [0,1]$, then
+**Part a.** We apply the inversion method as described by @graham2013stochastic. We first compute the generalised inverse of the cdf \@ref(eq:2). To this end, let $y\in [0,1]$, then
 
 \begin{align}
     y &= F(x), \quad \iff (\#eq:3a) \\
@@ -72,7 +72,7 @@ The cdf associated with \@ref(eq:1) is given by
     x &= \tan\left(\pi\left(y-\frac{1}{2}\right)\right). 
 \end{align}
 
-By the inversion method [@graham2013stochastic], if $Y \sim U[0,1]$, then 
+By the inversion method [@graham2013stochastic], if $Y \sim U[0,1]$, then
 
 \begin{equation}
   X = \tan\left(\pi\left(Y-\frac{1}{2}\right)\right),
@@ -99,19 +99,15 @@ cauchy_samples <- generate_cauchy_samples(num_samples)
 
 ```
 
-
-**Part b.**   The empirical cdf based on $N$ samples $x_1, \ldots, x_N$ is defined to be
-              $$
+**Part b.** The empirical cdf based on $N$ samples $x_1, \ldots, x_N$ is defined to be $$
                 \widehat{F}(t) = \frac{1}{N}\sum_{i = 1}^N \mathbf{1}[x_i \leq t], \quad x\in \mathbb{t}.
-              $$
-To generate the empirical cdf in R, we perform the following steps:
-            
-a. Generate $N$ samples from the distribution using the inversion method, as detailed in the previous question.  
-b. Sort the samples in ascending order $x_1 \leq x_2 \leq x_3 \leq \ldots \leq x_N$.
-c. The empirical CDF at value $x_i$ is given by $i/N$.  
+              $$ To generate the empirical cdf in R, we perform the following steps:
 
+a.  Generate $N$ samples from the distribution using the inversion method, as detailed in the previous question.\
+b.  Sort the samples in ascending order $x_1 \leq x_2 \leq x_3 \leq \ldots \leq x_N$.
+c.  The empirical CDF at value $x_i$ is given by $i/N$.
 
-In the following figure we plot the empirical cdf based on 1000 samples (black line), and compare against the analytical cdf (red line).  
+In the following figure we plot the empirical cdf based on 1000 samples (black line), and compare against the analytical cdf (red line).
 
 ```{r echo=FALSE}
 
@@ -139,7 +135,7 @@ lines(x_values, cdf_values, type = "l",
       col = 'red', lty = 2)
 ```
 
-**Part c.**  We shall use the samples to compute the empirical cdf for the values $x = 0.5, 1, 10$.  
+**Part c.** We shall use the samples to compute the empirical cdf for the values $x = 0.5, 1, 10$.
 
 ```{r echo=FALSE}
 
@@ -163,12 +159,11 @@ kbl(df,
     font_size = 12)
 ```
 
-
 # Code appendix
 
 Rather than re-paste all the code to the appendix, here is a trick which makes the markdown file output all the code (without) execution in the appendix, without any duplication.
 
-Please keep in mind to format the code so that the entire code is clearly visible and does not run into the margins of the pdf version.  
+Please keep in mind to format the code so that the entire code is clearly visible and does not run into the margins of the pdf version.
 
 ```{r ref.label=knitr::all_labels(), echo = T, eval = F}
 ```
