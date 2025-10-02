@@ -1,2 +1,2 @@
-# template_coursework
+# Template Coursework
 An example coursework document in Quarto.
